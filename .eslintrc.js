@@ -22,5 +22,10 @@ module.exports = {
     "@typescript-eslint"
   ],
   rules: {
+  },
+  settings: {
+    react: {
+      version: "16.12.0"
+    }
   }
 };
