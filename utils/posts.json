@@ -1,0 +1,5 @@
+[
+  { "slug": "meu-primeiro-post", "title": "Meu primeiro post", "text": "Cacildes lorem ipsum 1" },
+  { "slug": "meu-segundo-post", "title": "Meu segundo post", "text": "Cacildes lorem ipsum 2" },
+  { "slug": "meu-terceiro-post", "title": "Meu terceiro post", "text": "Cacildes lorem ipsum 3" }
+]
