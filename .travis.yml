@@ -17,8 +17,7 @@ branches:
 install:
   - yarn
 
-before_script:
-  - yarn build
-
 script:
   - yarn lint
+  - yarn build
+  - yarn export
