@@ -1,16 +1,37 @@
 import React from 'react'
 import Link from 'next/link'
-import Layout from '../components/Layout'
+import { GetStaticProps, NextPage } from 'next'
 
-const IndexPage = (): JSX.Element => (
-  <Layout title="Home | Next.js + TypeScript Example">
-    <h1>Hello Next.js 👋</h1>
-    <p>
-      <Link href="/about">
-        <a>About</a>
-      </Link>
-    </p>
-  </Layout>
-)
+import Layout from '../components/Layout'
+import { Post } from '../interfaces'
+
+interface PageProps {
+  posts: Post[]
+}
+
+const IndexPage: NextPage<PageProps> = ({ posts }) => {
+  const title = "Pacheco's Blog"
+  return (
+    <Layout title={title}>
+      <h1>{title} 👋</h1>
+      <ul>
+        {posts.map(({ slug, title }) => (
+          <li key={slug}>
+            <Link as={`/posts/${slug}`} href={`/posts/${slug}`} passHref>
+              <a>{title}</a>
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </Layout>
+  );
+}
+
+export const getStaticProps: GetStaticProps = async () => {
+  const posts = (await import('../utils/posts.json')).default
+  return {
+    props: { posts },
+  }
+}
 
 export default IndexPage
