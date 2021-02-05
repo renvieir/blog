@@ -7,7 +7,7 @@ const AboutPage = (): JSX.Element => {
   return (
     <Layout title="About | Next.js + TypeScript Example">
       <h1>About</h1>
-      <p>This is the about page</p>
+      <p>Envie uma mensagem pela api do whatsapp</p>
       <div>
         <h2>Texto:</h2>
         <textarea ref={messageRef} />
