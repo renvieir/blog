@@ -1,17 +1,32 @@
-import React from 'react'
-import Link from 'next/link'
-import Layout from '../components/Layout'
+import React, { useRef } from "react";
+import Layout from "../components/Layout";
 
-const AboutPage = (): JSX.Element => (
-  <Layout title="About | Next.js + TypeScript Example">
-    <h1>About</h1>
-    <p>This is the about page</p>
-    <p>
-      <Link href="/">
-        <a>Go home</a>
-      </Link>
-    </p>
-  </Layout>
-)
+const AboutPage = (): JSX.Element => {
+  const phoneRef = useRef(null);
+  const messageRef = useRef(null);
+  return (
+    <Layout title="About | Next.js + TypeScript Example">
+      <h1>About</h1>
+      <p>This is the about page</p>
+      <div>
+        <h2>Texto:</h2>
+        <textarea ref={messageRef} />
+      </div>
+      <div>
+        <h2>Telefone:</h2>
+        <input ref={phoneRef} />
+        <button
+          onClick={() =>
+            window.open(
+              `https://api.whatsapp.com/send?phone=+55${phoneRef.current.value}&text=${messageRef.current.value}`
+            )
+          }
+        >
+          Iniciar conversa
+        </button>
+      </div>
+    </Layout>
+  );
+};
 
-export default AboutPage
+export default AboutPage;
