@@ -1,16 +1,16 @@
-import React from 'react'
-import Link from 'next/link'
-import { GetStaticProps, NextPage } from 'next'
+import React from "react";
+import Link from "next/link";
+import { GetStaticProps, NextPage } from "next";
 
-import Layout from '../components/Layout'
-import { Post } from '../interfaces'
+import Layout from "../components/Layout";
+import { Post } from "../interfaces";
 
 interface PageProps {
-  posts: Post[]
+  posts: Post[];
 }
 
 const IndexPage: NextPage<PageProps> = ({ posts }) => {
-  const title = "Pacheco's Blog"
+  const title = "Pacheco's Blog";
   return (
     <Layout title={title}>
       <h1>{title} 👋</h1>
@@ -25,13 +25,13 @@ const IndexPage: NextPage<PageProps> = ({ posts }) => {
       </ul>
     </Layout>
   );
-}
+};
 
 export const getStaticProps: GetStaticProps = async () => {
-  const posts = (await import('../utils/posts.json')).default
+  const posts = (await import("../utils/posts.json")).default;
   return {
     props: { posts },
-  }
-}
+  };
+};
 
-export default IndexPage
+export default IndexPage;
