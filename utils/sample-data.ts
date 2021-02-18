@@ -8,4 +8,5 @@ export const sampleUserData: User[] = [
   { id: 104, name: 'Dave' },
   { id: 105, name: 'João' },
   { id: 106, name: 'Pacheco' },
+  { id: 107, name: 'Renato' },
 ]
