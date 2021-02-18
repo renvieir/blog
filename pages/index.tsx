@@ -10,7 +10,7 @@ interface PageProps {
 }
 
 const IndexPage: NextPage<PageProps> = ({ posts }) => {
-  const title = "Pacheco's Blog"
+  const title = "Pacheco's Blog V2"
   return (
     <Layout title={title}>
       <h1>{title} 👋</h1>
