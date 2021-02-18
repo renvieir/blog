@@ -1,8 +1,12 @@
 import React from 'react'
 import { GetStaticPaths, GetStaticProps, NextPage } from 'next'
+import { Amplify } from "aws-amplify";
 
 import Layout from '../../components/Layout'
 import { Post } from '../../interfaces'
+import awsExports from "../../aws-exports";
+
+Amplify.configure({ ...awsExports, ssr: true });
 
 const PostPage: NextPage<Post> = ({
   title, text
