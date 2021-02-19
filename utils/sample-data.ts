@@ -11,6 +11,6 @@ export const sampleUserData: User[] = [
   { id: 107, name: 'Renato' },
   { id: 108, name: 'Felipe' },
   { id: 109, name: 'Carvalho' },
-  { id: 110, name: 'Limeira' },
+  { id: 110, name: 'BRABO Limeira' },
   { id: 111, name: 'Vieira' },
 ]
