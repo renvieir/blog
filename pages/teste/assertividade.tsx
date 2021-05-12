@@ -9,6 +9,7 @@ import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import { useFormik } from "formik";
 import { useEffect, useState } from "react";
+import Layout from "../../components/Layout";
 
 const questions = [
   {
@@ -181,17 +182,15 @@ export default function Assertividade() {
     }
   }, []);
   return (
-    <>
+    <Layout title="Teste de Comunicação Assertiva">
       <Head>
-        <title>Teste de Assertividade na Comunicação</title>
-        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         <link
           rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
         />
       </Head>
       <main>
-        <Typography variant="h3">Teste de assertividade</Typography>
+        <Typography variant="h3">Teste de comunicação assertiva</Typography>
         {!showResult && (
           <>
             <Typography variant="subtitle1">{pageMessage}</Typography>
@@ -348,6 +347,6 @@ export default function Assertividade() {
           </>
         )}
       </main>
-    </>
+    </Layout>
   );
 }
