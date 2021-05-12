@@ -192,7 +192,7 @@ export default function Assertividade() {
         />
       </Head>
       <main>
-        <Typography variant="h2">Teste de assertividade</Typography>
+        <Typography variant="h3">Teste de assertividade</Typography>
         {!showResult && (
           <>
             <Typography variant="subtitle1">{pageMessage}</Typography>
@@ -257,7 +257,7 @@ export default function Assertividade() {
         )}
         {showResult && (
           <>
-            <Typography variant="h3">Resultado</Typography>
+            <Typography variant="h4">Resultado</Typography>
             <Typography variant="body1">Passivo: {score.A}</Typography>
             <Typography variant="body1">Agressivo: {score.B}</Typography>
             <Typography variant="body1">Assertivo: {score.C}</Typography>
@@ -291,7 +291,6 @@ export default function Assertividade() {
             >
               Enviar resultado para o telefone acima
             </Button>
-            <br />
             <Button
               style={{ marginTop: 16 }}
               variant="contained"
@@ -304,6 +303,49 @@ export default function Assertividade() {
             >
               Fazer o teste novamente
             </Button>
+            <br />
+            <br />
+            <Typography variant="h4">Entenda seu resultado</Typography>
+            <Typography variant="body1">
+              Quanto maior a sua nota em uma das colunas, mais propenso você
+              será para apresentar um determinado ESTILO DE COMPORTAMENTO, em
+              que:
+              <br />
+              <br />
+              <strong>PASSIVO</strong> – Ansioso por evitar confronto. Evita
+              abordagem direta. Abre mão dos seus direitos pelo outro (cede
+              facilmente). Muito preocupado com aprovação social. Justificação
+              excessiva. Pouco contato visual/atitude defensiva.
+              <br />
+              <br />
+              <strong>AGRESSIVO</strong> – Ansioso por vencer, mesmo à custa do
+              outro. Faz abordagens diretas, mas sem tato (habilidade) com o
+              outro. Faz valer apenas seus direitos e ignora os do outro.
+              <br />
+              <br />
+              <strong>ASSERTIVO</strong> – Busca defender seus desejos, sem
+              ignorar os dos outros. Faz abordagem, direta, mas exprimindo
+              respeito pela pessoa. Ouve e procura entender a perspectiva do
+              outro. Aceita acordos e soluções integradoras. Expõe claramente
+              suas posições, opiniões e sentimentos. Sua autoestima está acima
+              se sua preocupação por aprovação social.
+              <br />
+              <br />
+              <strong>PASSIVO/AGRESSIVO</strong> – Apresenta um comportamento
+              misto, com elementos de agressividade e passividade. Ansioso por
+              acertar as contas sem correr riscos de confronto. Dá respostas
+              indiretas/sarcasmos. Mínimo contato visual / postura fechada.
+              <br />
+              <br />
+              <strong>RECOMENDAÇÃO</strong>: É interessante que você solicite a
+              outras pessoas que o conhecem bem, que respondam esse teste.
+              Outras percepções poderão agregar valor ao seu autoconhecimento e
+              a busca por crescimento pessoal. Tenha em mente que o
+              comportamento assertivo é aprendido, basta você querer.
+              <br />
+              <br />O QUE VOCÊ PODE FAZER PARA TER UM COMPORTAMENTO MAIS
+              ASSERTIVO?
+            </Typography>
           </>
         )}
       </main>
