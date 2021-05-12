@@ -1,8 +1,8 @@
 import React from "react";
-import Link from "next/link";
 import { NextPage } from "next";
 
 import Layout from "../components/Layout";
+import Router from "next/router";
 
 const IndexPage: NextPage = () => {
   const title = "Pacheco's Blog";
@@ -10,14 +10,17 @@ const IndexPage: NextPage = () => {
     <Layout title={title}>
       <h1>{title} 👋</h1>
       <ul>
-        <li>
-          <Link
-            as={`/teste/assertividade`}
-            href={`/teste/assertividade`}
-            passHref
-          >
-            <a>Teste de comunicação assertiva</a>
-          </Link>
+        <li
+          style={{
+            cursor: "pointer",
+            textDecoration: "underline",
+          }}
+          onClick={() => {
+            Router.push("/teste/assertividade");
+            console.log("oi");
+          }}
+        >
+          Teste de comunicação assertiva
         </li>
       </ul>
     </Layout>
