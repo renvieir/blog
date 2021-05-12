@@ -1,0 +1,267 @@
+import Head from "next/head";
+import Typography from "@material-ui/core/Typography";
+import Radio from "@material-ui/core/Radio";
+import RadioGroup from "@material-ui/core/RadioGroup";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import FormControl from "@material-ui/core/FormControl";
+import FormLabel from "@material-ui/core/FormLabel";
+import Button from "@material-ui/core/Button";
+import TextField from "@material-ui/core/TextField";
+import { useFormik } from "formik";
+import { useRef, useState } from "react";
+
+const questions = [
+  {
+    id: 1,
+    text: "Quando enfrento alguém sobre determinado problema sinto-me bastante constrangido.",
+    option: "A",
+  },
+  {
+    id: 2,
+    text: "Permaneço calmo e confiante ao defrontar-me com sarcasmo, escárnio ou críticas defensivas.",
+    option: "C",
+  },
+  {
+    id: 3,
+    text: "Perco a calma facilmente.",
+    option: "B",
+  },
+  {
+    id: 4,
+    text: "Procuro resolver os problemas diretamente, sem culpar ou julgar os outros.",
+    option: "C",
+  },
+  {
+    id: 5,
+    text: "Acho certo pedir o que desejo ou expor meus sentimentos.",
+    option: "C",
+  },
+  {
+    id: 6,
+    text: "Sinto-me a vontade quanto ao grau de contato visual que estabeleço com outras pessoas e creio que elas também sentem o mesmo.",
+    option: "C",
+  },
+  {
+    id: 7,
+    text: "Sinto-me facilmente constrangido pelo ridículo e sarcasmo.",
+    option: "A",
+  },
+  {
+    id: 8,
+    text: "É mais importante obter o que desejo do que conquistar a simpatia das pessoas.",
+    option: "B",
+  },
+  {
+    id: 9,
+    text: "Prefiro mil vezes quando as pessoas advinham meus desejos a ter que dizer-lhes.",
+    option: "A",
+  },
+  {
+    id: 10,
+    text: "Confio em minha habilidade de resolver satisfatoriamente a maioria das situações de trabalho que envolvem confronto com outras pessoas. ",
+    option: "C",
+  },
+  {
+    id: 11,
+    text: "Elevarei o tom de voz ou usarei de olhares ofensivos ou sarcasmo para conseguir o que desejo.",
+    option: "B",
+  },
+  {
+    id: 12,
+    text: "Usarei de sarcasmo ou piadas para afirmar meu ponto de vista.",
+    option: "D",
+  },
+  {
+    id: 13,
+    text: "Paciência não é o meu forte.",
+    option: "B",
+  },
+  {
+    id: 14,
+    text: "Conquistar a simpatia das pessoas é o mais importante para mim ainda que algumas vezes precise, para isto, “comprar” sua colaboração. ",
+    option: "A",
+  },
+  {
+    id: 15,
+    text: "Detesto confrontos e farei tudo que estiver em meu alcance para evita-los.",
+    option: "A",
+  },
+  {
+    id: 16,
+    text: "Realmente não gosto de confrontos. Usarei, então, de outros meios para manifestar meus sentimentos, tais como observações “cortantes” ou manifestando impaciência. ",
+    option: "D",
+  },
+  {
+    id: 17,
+    text: "Posso não ser muito direto com as pessoas, mas elas conseguem perceber o que penso a seu respeito só de olhar para mim.",
+    option: "D",
+  },
+  {
+    id: 18,
+    text: "É fácil, para mim, agredir ou apontar o dedo indicador para outras pessoas.",
+    option: "B",
+  },
+  {
+    id: 19,
+    text: "Manifesto impaciência em relação aos outros através de expressão corporal, preferencialmente a comunicação verbal. ",
+    option: "D",
+  },
+  {
+    id: 20,
+    text: "Se for solicitado a fazer algo que não queira ainda assim atenderei ao pedido, mas, propositalmente, não o farei tão bem quanto poderia.",
+    option: "D",
+  },
+];
+
+const initialValues = {
+  question1: "0",
+  question2: "0",
+  question3: "0",
+  question4: "0",
+  question5: "0",
+  question6: "0",
+  question7: "0",
+  question8: "0",
+  question9: "0",
+  question10: "0",
+  question11: "0",
+  question12: "0",
+  question13: "0",
+  question14: "0",
+  question15: "0",
+  question16: "0",
+  question17: "0",
+  question18: "0",
+  question19: "0",
+  question20: "0",
+};
+
+const pageMessage = `Dê uma nota a você mesmo, de 0 a 5, para cada resposta, em que 0 = nunca ou muito
+diferente de mim e 5 = sempre ou exatamente como eu. Marque sua nota no quadrado
+da coluna correspondente. `;
+
+export default function Assertividade() {
+  const phoneRef = useRef();
+  const [showResult, setShowResult] = useState(false);
+  const [score, setScore] = useState({});
+  const formik = useFormik({
+    initialValues,
+    onSubmit: (values) => {
+      const result = questions.reduce(
+        (newObj, { id, option }) =>
+          Object.assign(newObj, {
+            [option]:
+              Number(newObj[option] || 0) + Number(values[`question${id}`]),
+          }),
+        {}
+      );
+      setScore(result);
+      setShowResult(true);
+    },
+  });
+  return (
+    <>
+      <Head>
+        <title>Teste de Assertividade</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+        />
+      </Head>
+      <main>
+        <Typography variant="h1">Teste de assertividade</Typography>
+        <Typography variant="subtitle1">{pageMessage}</Typography>
+        {!showResult && (
+          <form onSubmit={formik.handleSubmit}>
+            {questions.map((question) => (
+              <FormControl key={`question${question.id}`}>
+                <FormLabel component="legend">
+                  <Typography variant="h4">
+                    {question.id}. {question.text}
+                  </Typography>
+                </FormLabel>
+                <RadioGroup
+                  aria-label={`question${question.id}`}
+                  name={`question${question.id}`}
+                  value={formik.values[`question${question.id}`]}
+                  onChange={formik.handleChange}
+                >
+                  <FormControlLabel
+                    value="0"
+                    control={<Radio color="primary" />}
+                    label="Nunca ou muito diferente"
+                    labelPlacement="end"
+                  />
+                  <FormControlLabel
+                    value="1"
+                    control={<Radio color="primary" />}
+                    label="Uma vez ou outra"
+                    labelPlacement="end"
+                  />
+                  <FormControlLabel
+                    value="2"
+                    control={<Radio color="primary" />}
+                    label="Mais pra menos do que pra mais"
+                    labelPlacement="end"
+                  />
+                  <FormControlLabel
+                    value="3"
+                    control={<Radio color="primary" />}
+                    label="Mais pra mais do que pra menos"
+                    labelPlacement="end"
+                  />
+                  <FormControlLabel
+                    value="4"
+                    control={<Radio color="primary" />}
+                    label="Quase sempre"
+                    labelPlacement="end"
+                  />
+                  <FormControlLabel
+                    value="5"
+                    control={<Radio color="primary" />}
+                    label="Sempre ou exatamente como eu"
+                    labelPlacement="end"
+                  />
+                </RadioGroup>
+              </FormControl>
+            ))}
+            <Button variant="contained" color="primary" type="submit">
+              Enviar
+            </Button>
+          </form>
+        )}
+        {showResult && (
+          <>
+            <Typography variant="h3">Resultado</Typography>
+            <Typography variant="body1">Passivo: {score.A}</Typography>
+            <Typography variant="body1">Agressivo: {score.B}</Typography>
+            <Typography variant="body1">Assertivo: {score.C}</Typography>
+            <Typography variant="body1">
+              Passivo/Agressivo: {score.D}
+            </Typography>
+            <TextField label="Telefone" ref={phoneRef} />
+            <br />
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={() => {
+                const message = `
+                Passivo: ${score.A}
+                Agressivo: ${score.B}
+                Assertivo: ${score.C}
+                Passivo/Agressivo: ${score.D}
+                `;
+                window.open(
+                  `https://api.whatsapp.com/send?phone=+55${phoneRef.current?.value}&text=${message}`
+                );
+              }}
+            >
+              Enviar resultado para o telefone acima
+            </Button>
+          </>
+        )}
+      </main>
+    </>
+  );
+}
