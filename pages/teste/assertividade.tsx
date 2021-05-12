@@ -139,8 +139,7 @@ const initialValues: any = {
 const initialScore = {};
 
 const pageMessage = `Dê uma nota a você mesmo, de 0 a 5, para cada resposta, em que 0 = nunca ou muito
-diferente de mim e 5 = sempre ou exatamente como eu. Marque sua nota no quadrado
-da coluna correspondente. `;
+diferente de mim e 5 = sempre ou exatamente como eu.`;
 
 export default function Assertividade() {
   const [showResult, setShowResult] = useState(false);
@@ -184,7 +183,7 @@ export default function Assertividade() {
   return (
     <>
       <Head>
-        <title>Teste de Assertividade</title>
+        <title>Teste de Assertividade na Comunicação</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         <link
           rel="stylesheet"
@@ -200,7 +199,7 @@ export default function Assertividade() {
               {questions.map((question) => (
                 <FormControl key={`question${question.id}`}>
                   <FormLabel component="legend">
-                    <Typography variant="h4">
+                    <Typography variant="h5">
                       {question.id}. {question.text}
                     </Typography>
                   </FormLabel>
@@ -213,7 +212,7 @@ export default function Assertividade() {
                     <FormControlLabel
                       value="0"
                       control={<Radio color="primary" />}
-                      label="Nunca ou muito diferente"
+                      label="Nunca ou muito diferente de mim"
                       labelPlacement="end"
                     />
                     <FormControlLabel
@@ -225,13 +224,13 @@ export default function Assertividade() {
                     <FormControlLabel
                       value="2"
                       control={<Radio color="primary" />}
-                      label="Mais pra menos do que pra mais"
+                      label="Poucas vezes"
                       labelPlacement="end"
                     />
                     <FormControlLabel
                       value="3"
                       control={<Radio color="primary" />}
-                      label="Mais pra mais do que pra menos"
+                      label="Muitas vezes"
                       labelPlacement="end"
                     />
                     <FormControlLabel
