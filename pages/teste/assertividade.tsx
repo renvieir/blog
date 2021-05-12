@@ -8,7 +8,7 @@ import FormLabel from "@material-ui/core/FormLabel";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import { useFormik } from "formik";
-import { useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
 const questions = [
   {
@@ -136,19 +136,22 @@ const initialValues: any = {
   question20: "0",
 };
 
+const initialScore = {};
+
 const pageMessage = `Dê uma nota a você mesmo, de 0 a 5, para cada resposta, em que 0 = nunca ou muito
 diferente de mim e 5 = sempre ou exatamente como eu. Marque sua nota no quadrado
 da coluna correspondente. `;
 
 export default function Assertividade() {
-  const phoneRef = useRef<any>();
   const [showResult, setShowResult] = useState(false);
-  const [score, setScore] = useState<{
-    A: number;
-    B: number;
-    C: number;
-    D: number;
-  }>({ A: 0, B: 0, C: 0, D: 0 });
+  const [phone, setPhone] = useState("");
+  const [score, setScore] =
+    useState<{
+      A?: number;
+      B?: number;
+      C?: number;
+      D?: number;
+    }>(initialScore);
   const formik = useFormik({
     initialValues,
     onSubmit: (values: any) => {
@@ -158,12 +161,26 @@ export default function Assertividade() {
             [option]:
               Number(newObj[option] || 0) + Number(values[`question${id}`]),
           }),
-        { A: 0, B: 0, C: 0, D: 0 }
+        initialScore
       );
       setScore(result);
       setShowResult(true);
+      window.localStorage.setItem(
+        "@teste-assertividade/score",
+        JSON.stringify(result)
+      );
     },
   });
+
+  useEffect(() => {
+    const score = JSON.parse(
+      `${window.localStorage.getItem("@teste-assertividade/score")}`
+    );
+    if (score) {
+      setScore(score);
+      setShowResult(true);
+    }
+  }, []);
   return (
     <>
       <Head>
@@ -175,66 +192,68 @@ export default function Assertividade() {
         />
       </Head>
       <main>
-        <Typography variant="h1">Teste de assertividade</Typography>
-        <Typography variant="subtitle1">{pageMessage}</Typography>
+        <Typography variant="h2">Teste de assertividade</Typography>
         {!showResult && (
-          <form onSubmit={formik.handleSubmit}>
-            {questions.map((question) => (
-              <FormControl key={`question${question.id}`}>
-                <FormLabel component="legend">
-                  <Typography variant="h4">
-                    {question.id}. {question.text}
-                  </Typography>
-                </FormLabel>
-                <RadioGroup
-                  aria-label={`question${question.id}`}
-                  name={`question${question.id}`}
-                  value={formik.values[`question${question.id}`]}
-                  onChange={formik.handleChange}
-                >
-                  <FormControlLabel
-                    value="0"
-                    control={<Radio color="primary" />}
-                    label="Nunca ou muito diferente"
-                    labelPlacement="end"
-                  />
-                  <FormControlLabel
-                    value="1"
-                    control={<Radio color="primary" />}
-                    label="Uma vez ou outra"
-                    labelPlacement="end"
-                  />
-                  <FormControlLabel
-                    value="2"
-                    control={<Radio color="primary" />}
-                    label="Mais pra menos do que pra mais"
-                    labelPlacement="end"
-                  />
-                  <FormControlLabel
-                    value="3"
-                    control={<Radio color="primary" />}
-                    label="Mais pra mais do que pra menos"
-                    labelPlacement="end"
-                  />
-                  <FormControlLabel
-                    value="4"
-                    control={<Radio color="primary" />}
-                    label="Quase sempre"
-                    labelPlacement="end"
-                  />
-                  <FormControlLabel
-                    value="5"
-                    control={<Radio color="primary" />}
-                    label="Sempre ou exatamente como eu"
-                    labelPlacement="end"
-                  />
-                </RadioGroup>
-              </FormControl>
-            ))}
-            <Button variant="contained" color="primary" type="submit">
-              Enviar
-            </Button>
-          </form>
+          <>
+            <Typography variant="subtitle1">{pageMessage}</Typography>
+            <form onSubmit={formik.handleSubmit}>
+              {questions.map((question) => (
+                <FormControl key={`question${question.id}`}>
+                  <FormLabel component="legend">
+                    <Typography variant="h4">
+                      {question.id}. {question.text}
+                    </Typography>
+                  </FormLabel>
+                  <RadioGroup
+                    aria-label={`question${question.id}`}
+                    name={`question${question.id}`}
+                    value={formik.values[`question${question.id}`]}
+                    onChange={formik.handleChange}
+                  >
+                    <FormControlLabel
+                      value="0"
+                      control={<Radio color="primary" />}
+                      label="Nunca ou muito diferente"
+                      labelPlacement="end"
+                    />
+                    <FormControlLabel
+                      value="1"
+                      control={<Radio color="primary" />}
+                      label="Uma vez ou outra"
+                      labelPlacement="end"
+                    />
+                    <FormControlLabel
+                      value="2"
+                      control={<Radio color="primary" />}
+                      label="Mais pra menos do que pra mais"
+                      labelPlacement="end"
+                    />
+                    <FormControlLabel
+                      value="3"
+                      control={<Radio color="primary" />}
+                      label="Mais pra mais do que pra menos"
+                      labelPlacement="end"
+                    />
+                    <FormControlLabel
+                      value="4"
+                      control={<Radio color="primary" />}
+                      label="Quase sempre"
+                      labelPlacement="end"
+                    />
+                    <FormControlLabel
+                      value="5"
+                      control={<Radio color="primary" />}
+                      label="Sempre ou exatamente como eu"
+                      labelPlacement="end"
+                    />
+                  </RadioGroup>
+                </FormControl>
+              ))}
+              <Button variant="contained" color="primary" type="submit">
+                Enviar
+              </Button>
+            </form>
+          </>
         )}
         {showResult && (
           <>
@@ -245,24 +264,45 @@ export default function Assertividade() {
             <Typography variant="body1">
               Passivo/Agressivo: {score.D}
             </Typography>
-            <TextField label="Telefone" inputRef={phoneRef} />
+            <TextField
+              focused
+              style={{ marginTop: 16 }}
+              label="Telefone"
+              value={phone}
+              onChange={(ev) => setPhone(ev.target.value)}
+              helperText="Preencha o telefone com DDD"
+              InputLabelProps={{
+                shrink: true,
+              }}
+            />
             <br />
             <Button
+              disabled={!phone}
+              style={{ marginTop: 16 }}
               variant="contained"
               color="primary"
               onClick={() => {
-                const message = `
-                Passivo: ${score.A}
-                Agressivo: ${score.B}
-                Assertivo: ${score.C}
-                Passivo/Agressivo: ${score.D}
+                const message = `Passivo: ${score.A}. Agressivo: ${score.B}. Assertivo: ${score.C}. Passivo/Agressivo: ${score.D}
                 `;
                 window.open(
-                  `https://api.whatsapp.com/send?phone=+55${phoneRef.current?.value}&text=${message}`
+                  `https://api.whatsapp.com/send?phone=+55${phone}&text=${message}`
                 );
               }}
             >
               Enviar resultado para o telefone acima
+            </Button>
+            <br />
+            <Button
+              style={{ marginTop: 16 }}
+              variant="contained"
+              color="primary"
+              onClick={() => {
+                setShowResult(false);
+                setScore(initialScore);
+                window.localStorage.removeItem("@teste-assertividade/score");
+              }}
+            >
+              Fazer o teste novamente
             </Button>
           </>
         )}
