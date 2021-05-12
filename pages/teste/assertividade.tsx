@@ -113,7 +113,7 @@ const questions = [
   },
 ];
 
-const initialValues = {
+const initialValues: any = {
   question1: "0",
   question2: "0",
   question3: "0",
@@ -141,19 +141,24 @@ diferente de mim e 5 = sempre ou exatamente como eu. Marque sua nota no quadrado
 da coluna correspondente. `;
 
 export default function Assertividade() {
-  const phoneRef = useRef();
+  const phoneRef = useRef<any>();
   const [showResult, setShowResult] = useState(false);
-  const [score, setScore] = useState({});
+  const [score, setScore] = useState<{
+    A: number;
+    B: number;
+    C: number;
+    D: number;
+  }>({ A: 0, B: 0, C: 0, D: 0 });
   const formik = useFormik({
     initialValues,
-    onSubmit: (values) => {
+    onSubmit: (values: any) => {
       const result = questions.reduce(
-        (newObj, { id, option }) =>
+        (newObj: any, { id, option }) =>
           Object.assign(newObj, {
             [option]:
               Number(newObj[option] || 0) + Number(values[`question${id}`]),
           }),
-        {}
+        { A: 0, B: 0, C: 0, D: 0 }
       );
       setScore(result);
       setShowResult(true);
@@ -240,7 +245,7 @@ export default function Assertividade() {
             <Typography variant="body1">
               Passivo/Agressivo: {score.D}
             </Typography>
-            <TextField label="Telefone" ref={phoneRef} />
+            <TextField label="Telefone" inputRef={phoneRef} />
             <br />
             <Button
               variant="contained"
